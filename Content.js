@@ -1,4 +1,3 @@
-const HOURSINDAY = 24;
 
 
 // document.querySelector('.video-stream.html5-main-video').currentTime
@@ -6,6 +5,7 @@ const HOURSINDAY = 24;
 
 
 const timeToSeconds = (timeString) => {
+    const HOURSINDAY = 24;
     // 1 hour is 60 minuts, 1 minute is 60 seconds, 1 seconds is 60 milliseconds.
     const TIMECONST = 60;
     let dateArr = timeString.split(':');
@@ -76,8 +76,13 @@ const init = function () {
             // Get already watched time
             let alreadyWatchedTime = timeArea.querySelector('.ytp-time-current').textContent
 
+            // let alreadyWatchedTime = document.querySelector('.video-stream.html5-main-video').currentTime 
+
             // Get all video time
             let videoSummaryTime = timeArea.querySelector('.ytp-time-duration').textContent
+            
+            // let videoSummaryTime = document.querySelector('.video-stream.html5-main-video').duration
+
             console.log(getRemainingTime(videoSummaryTime, alreadyWatchedTime))
             timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
         }, playbackSpeed);
