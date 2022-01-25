@@ -5,10 +5,9 @@ const HOURSINDAY = 24;
 // document.querySelector('.video-stream.html5-main-video').duration
 
 
-// 1 hour is 60 minuts, 1 minute is 60 seconds, 1 seconds is 60 milliseconds.
-const TIMECONST = 60;
-
 const timeToSeconds = (timeString) => {
+    // 1 hour is 60 minuts, 1 minute is 60 seconds, 1 seconds is 60 milliseconds.
+    const TIMECONST = 60;
     let dateArr = timeString.split(':');
     switch (dateArr.length) {
         // Includes minutes -> seconds, or in case of shorts - seconds and milliseconds
