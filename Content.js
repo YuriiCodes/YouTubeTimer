@@ -56,7 +56,7 @@ const init = function () {
     let dividerSpan = document.createElement('span');
     dividerSpan.id = "youtubeTimerDivider"
     timeArea.appendChild(dividerSpan);
-    dividerSpan.textContent = '\t|\t';
+    dividerSpan.textContent = '\t/\t';
 
     let timeSpan = document.createElement('span');
     timeArea.appendChild(timeSpan);
