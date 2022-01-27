@@ -1,9 +1,3 @@
-
-
-// document.querySelector('.video-stream.html5-main-video').currentTime
-// document.querySelector('.video-stream.html5-main-video').duration
-
-
 const timeToIso = (timeString) => {
     const HOURSINDAY = 24;
     // 1 hour is 60 minuts, 1 minute is 60 seconds, 1 seconds is 60 milliseconds.
@@ -17,7 +11,6 @@ const timeToIso = (timeString) => {
 
         // Includes hours -> minutes -> seconds
         case 3:
-            console.log('case 3');
             return ((parseInt(dateArr[0]) * TIMECONST * TIMECONST) + (parseInt(dateArr[1]) * TIMECONST) + parseInt(dateArr[2]))
 
         // Includes days -> hours -> minutes -> seconds
@@ -48,6 +41,7 @@ const init = function () {
     let timeArea = document.querySelector('.ytp-time-display .ytp-time-current').parentElement
 
     const getRemainingTime = (videoSummaryTime, alreadyWatchedTime) => {
+        // Here we pick prefered output format based on video duration. If the duration is > 1 hour, output format would be HH:MM:SS, otherwise just MM:SS
         let minutesOrHours = videoSummaryTime.split(':').length == 2 ? 'minutes' : 'hours';
         return secondsToIso(timeToIso(videoSummaryTime) - timeToIso(alreadyWatchedTime), minutesOrHours)
 
@@ -67,24 +61,18 @@ const init = function () {
     // change setInterval duration to keep reamining time beind updated at the same rate as already watched one.
     video.onratechange = function () {
         let playbackSpeed = video.playbackRate;
-        console.log(playbackSpeed)
         updateWidget(playbackSpeed)
     };
-video.addEventListener('timeupdate', (event) => {
-  console.log('The currentTime attribute has been updated. Again.');
-   // Get already watched time
-   let alreadyWatchedTime = timeArea.querySelector('.ytp-time-current').textContent
 
-   // let alreadyWatchedTime = document.querySelector('.video-stream.html5-main-video').currentTime 
 
-   // Get all video time
-   let videoSummaryTime = timeArea.querySelector('.ytp-time-duration').textContent
-   
-   // let videoSummaryTime = document.querySelector('.video-stream.html5-main-video').duration
+    video.ontimeupdate = function(event) {
+    // Get already watched time
+    let alreadyWatchedTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').currentTime).slice(4)
 
-   console.log(getRemainingTime(videoSummaryTime, alreadyWatchedTime))
-   timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
-});
+    // Get all video time
+    let videoSummaryTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').duration ).slice(4)
+    timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
+    };
 
 };
 if (document.querySelector('#youtubeTimerDivider') == null) {
