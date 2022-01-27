@@ -4,7 +4,7 @@
 // document.querySelector('.video-stream.html5-main-video').duration
 
 
-const timeToSeconds = (timeString) => {
+const timeToIso = (timeString) => {
     const HOURSINDAY = 24;
     // 1 hour is 60 minuts, 1 minute is 60 seconds, 1 seconds is 60 milliseconds.
     const TIMECONST = 60;
@@ -49,7 +49,7 @@ const init = function () {
 
     const getRemainingTime = (videoSummaryTime, alreadyWatchedTime) => {
         let minutesOrHours = videoSummaryTime.split(':').length == 2 ? 'minutes' : 'hours';
-        return secondsToIso(timeToSeconds(videoSummaryTime) - timeToSeconds(alreadyWatchedTime), minutesOrHours)
+        return secondsToIso(timeToIso(videoSummaryTime) - timeToIso(alreadyWatchedTime), minutesOrHours)
 
     }
 
