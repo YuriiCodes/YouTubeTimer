@@ -70,24 +70,22 @@ const init = function () {
         console.log(playbackSpeed)
         updateWidget(playbackSpeed)
     };
+video.addEventListener('timeupdate', (event) => {
+  console.log('The currentTime attribute has been updated. Again.');
+   // Get already watched time
+   let alreadyWatchedTime = timeArea.querySelector('.ytp-time-current').textContent
 
-    const updateWidget = (playbackSpeed = 1000) => {
-        setInterval(() => {
-            // Get already watched time
-            let alreadyWatchedTime = timeArea.querySelector('.ytp-time-current').textContent
+   // let alreadyWatchedTime = document.querySelector('.video-stream.html5-main-video').currentTime 
 
-            // let alreadyWatchedTime = document.querySelector('.video-stream.html5-main-video').currentTime 
+   // Get all video time
+   let videoSummaryTime = timeArea.querySelector('.ytp-time-duration').textContent
+   
+   // let videoSummaryTime = document.querySelector('.video-stream.html5-main-video').duration
 
-            // Get all video time
-            let videoSummaryTime = timeArea.querySelector('.ytp-time-duration').textContent
-            
-            // let videoSummaryTime = document.querySelector('.video-stream.html5-main-video').duration
+   console.log(getRemainingTime(videoSummaryTime, alreadyWatchedTime))
+   timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
+});
 
-            console.log(getRemainingTime(videoSummaryTime, alreadyWatchedTime))
-            timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
-        }, playbackSpeed);
-    }
-    updateWidget();
 };
 if (document.querySelector('#youtubeTimerDivider') == null) {
     init();
