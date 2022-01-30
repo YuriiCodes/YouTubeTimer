@@ -15,7 +15,7 @@ try {
 
 try {
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-        console.log(changeInfo.url)
+        console.log(changeInfo.url && tab.active)
         if (changeInfo.status === 'complete') {
             chrome.scripting.executeScript({
                 files: ['./src/scripts/Content.js'],
