@@ -38,7 +38,8 @@ const secondsToIso = (seconds, minutesOrHours = 'hours') => {
 const init = function () {
 
     // // Get view time span
-    let timeArea = document.querySelector('.ytp-time-display .ytp-time-current').parentElement
+    // let timeArea = document.querySelector('.ytp-time-display .ytp-time-current').parentElement
+     let rightControls = document.querySelector('.ytp-right-controls')
 
     const getRemainingTime = (videoSummaryTime, alreadyWatchedTime) => {
         // Here we pick prefered output format based on video duration. If the duration is > 1 hour, output format would be HH:MM:SS, otherwise just MM:SS
@@ -47,13 +48,10 @@ const init = function () {
 
     }
 
-    let dividerSpan = document.createElement('span');
-    dividerSpan.id = "youtubeTimerDivider"
-    timeArea.appendChild(dividerSpan);
-    dividerSpan.textContent = '\t/\t';
-
     let timeSpan = document.createElement('span');
-    timeArea.appendChild(timeSpan);
+    timeSpan.classList.add('ytp-button')
+    timeSpan.id = 'youtubeTimerDivider'
+    rightControls.prepend(timeSpan);
 
 
     let video = document.querySelector('.video-stream.html5-main-video');
