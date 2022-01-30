@@ -23,28 +23,28 @@ const timeToIso = (timeString) => {
 };
 
 // Transforms time in seconds to HH-MM-SS string
-    const secondsToIso = (seconds, minutesOrHours = 'hours') => {
-        let date = new Date(null);
-        date.setSeconds(seconds);
-        if (minutesOrHours === 'minutes') {
-            return date.toISOString().slice(14, 19);
-        }
-        if (minutesOrHours === 'hours') {
-            return date.toISOString().slice(11, 19);
-        }
+const secondsToIso = (seconds, minutesOrHours = 'hours') => {
+    let date = new Date(null);
+    date.setSeconds(seconds);
+    if (minutesOrHours === 'minutes') {
+        return date.toISOString().slice(14, 19);
     }
+    if (minutesOrHours === 'hours') {
+        return date.toISOString().slice(11, 19);
+    }
+}
 
 // Main function
 const init = function () {
     // let timeArea = document.querySelector('.ytp-time-display .ytp-time-current').parentElement
-     let rightControls = document.querySelector('.ytp-right-controls')
+    let rightControls = document.querySelector('.ytp-right-controls')
 
     const getRemainingTime = (videoSummaryTime, alreadyWatchedTime) => {
         // Here we pick prefered output format based on video duration. If the duration is > 1 hour, output format would be HH:MM:SS, otherwise just MM:SS
         let minutesOrHours;
         if (videoSummaryTime.split(':')[0] == '00') {
             minutesOrHours = 'minutes'
-        } else{
+        } else {
             minutesOrHours = 'hours'
         }
         return secondsToIso(timeToIso(videoSummaryTime) - timeToIso(alreadyWatchedTime), minutesOrHours)
@@ -56,7 +56,12 @@ const init = function () {
     timeSpan.classList.add('ytp-button')
     timeSpan.style.paddingRight = '1em'
     // timeSpan.style.fontSize = "11px";
-    rightControls.prepend(timeSpan);
+    try {
+        rightControls.prepend(timeSpan);
+
+    } catch (error) {
+        console.log(error);
+    }
 
 
     let video = document.querySelector('.video-stream.html5-main-video');
@@ -68,13 +73,13 @@ const init = function () {
     };
 
 
-    video.ontimeupdate = function(event) {
-    // Get already watched time
-    let alreadyWatchedTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').currentTime)
+    video.ontimeupdate = function (event) {
+        // Get already watched time
+        let alreadyWatchedTime = secondsToIso(document.querySelector('.video-stream.html5-main-video').currentTime)
 
-    // Get all video time
-    let videoSummaryTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').duration )
-    timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
+        // Get all video time
+        let videoSummaryTime = secondsToIso(document.querySelector('.video-stream.html5-main-video').duration)
+        timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
     };
 
 };
