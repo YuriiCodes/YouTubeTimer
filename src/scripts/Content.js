@@ -23,16 +23,16 @@ const timeToIso = (timeString) => {
 };
 
 // Transforms time in seconds to HH-MM-SS string
-const secondsToIso = (seconds, minutesOrHours = 'hours') => {
-    let date = new Date(null);
-    date.setSeconds(seconds);
-    if (minutesOrHours === 'minutes') {
-        return date.toISOString().slice(14, 19);
+    const secondsToIso = (seconds, minutesOrHours = 'hours') => {
+        let date = new Date(null);
+        date.setSeconds(seconds);
+        if (minutesOrHours === 'minutes') {
+            return date.toISOString().slice(14, 19);
+        }
+        if (minutesOrHours === 'hours') {
+            return date.toISOString().slice(11, 19);
+        }
     }
-    if (minutesOrHours === 'hours') {
-        return date.toISOString().slice(11, 19);
-    }
-}
 
 // Main function
 const init = function () {
@@ -44,6 +44,7 @@ const init = function () {
     const getRemainingTime = (videoSummaryTime, alreadyWatchedTime) => {
         // Here we pick prefered output format based on video duration. If the duration is > 1 hour, output format would be HH:MM:SS, otherwise just MM:SS
         let minutesOrHours = videoSummaryTime.split(':').length == 2 ? 'minutes' : 'hours';
+        console.log(minutesOrHours)
         return secondsToIso(timeToIso(videoSummaryTime) - timeToIso(alreadyWatchedTime), minutesOrHours)
 
     }
@@ -51,6 +52,7 @@ const init = function () {
     let timeSpan = document.createElement('span');
     timeSpan.id = 'youtubeTimerDivider'
     timeSpan.classList.add('ytp-button')
+    timeSpan.style.fontSize = "11px";
     rightControls.prepend(timeSpan);
 
 
@@ -65,10 +67,10 @@ const init = function () {
 
     video.ontimeupdate = function(event) {
     // Get already watched time
-    let alreadyWatchedTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').currentTime).slice(4)
+    let alreadyWatchedTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').currentTime)
 
     // Get all video time
-    let videoSummaryTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').duration ).slice(4)
+    let videoSummaryTime = secondsToIso( document.querySelector('.video-stream.html5-main-video').duration )
     timeSpan.textContent = getRemainingTime(videoSummaryTime, alreadyWatchedTime)
     };
 
