@@ -43,7 +43,14 @@ const init = function () {
 
     const getRemainingTime = (videoSummaryTime, alreadyWatchedTime) => {
         // Here we pick prefered output format based on video duration. If the duration is > 1 hour, output format would be HH:MM:SS, otherwise just MM:SS
-        let minutesOrHours = videoSummaryTime.split(':').length == 2 ? 'minutes' : 'hours';
+        // let minutesOrHours = videoSummaryTime.split(':').length == 2 ? 'minutes' : 'hours';
+
+        let minutesOrHours;
+        if (videoSummaryTime.split(':')[0] == '00') {
+            minutesOrHours = 'minutes'
+        } else{
+            minutesOrHours = 'hours'
+        }
         console.log(minutesOrHours)
         return secondsToIso(timeToIso(videoSummaryTime) - timeToIso(alreadyWatchedTime), minutesOrHours)
 
@@ -52,7 +59,8 @@ const init = function () {
     let timeSpan = document.createElement('span');
     timeSpan.id = 'youtubeTimerDivider'
     timeSpan.classList.add('ytp-button')
-    timeSpan.style.fontSize = "11px";
+    timeSpan.style.paddingRight = '1em'
+    // timeSpan.style.fontSize = "11px";
     rightControls.prepend(timeSpan);
 
 
