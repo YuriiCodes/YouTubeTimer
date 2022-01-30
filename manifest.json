@@ -7,7 +7,7 @@
         "scripting"
       ],
     "background":{
-        "service_worker": "background.js"
+        "service_worker": "./src/scripts/background.js"
     },
     "host_permissions": ["<all_urls>"],
     "content_scripts": [
