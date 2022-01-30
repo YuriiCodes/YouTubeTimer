@@ -49,8 +49,8 @@ const init = function () {
     }
 
     let timeSpan = document.createElement('span');
-    timeSpan.classList.add('ytp-button')
     timeSpan.id = 'youtubeTimerDivider'
+    timeSpan.classList.add('ytp-button')
     rightControls.prepend(timeSpan);
 
 
